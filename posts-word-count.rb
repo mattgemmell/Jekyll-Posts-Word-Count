@@ -23,7 +23,7 @@ class PostsWordCount < Liquid::Tag
 
 	def render(context)
 		the_result = nil
-		all_posts = context.registers[:site].posts # OLDEST first!
+		all_posts = context.registers[:site].posts.docs # OLDEST first!
 		all_posts.each_with_index { |this_post, index|
 			num_words = word_count(this_post.content)
 			@total_word_count += num_words
