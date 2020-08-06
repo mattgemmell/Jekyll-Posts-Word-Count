@@ -30,23 +30,26 @@ class PostsWordCount < Liquid::Tag
 			if num_words > @longest_word_count
 				@longest_word_count = num_words
 				@longest_post_index = all_posts.count - (index + 1)
+				@longest_post_title = all_posts[index].data["title"]
 			end
 		}
 		@average_word_count = @total_word_count / all_posts.count
-		
+
 		if @text.start_with? "total"
 			the_result = @total_word_count
 		elsif @text.start_with? "average"
 			the_result = @average_word_count
 		elsif @text.start_with? "longest_post_index"
 			the_result = @longest_post_index
+		elsif @text.start_with? "longest_post_title"
+			the_result = @longest_post_title
 		elsif @text.start_with? "longest"
 			the_result = @longest_word_count
 		end
-		
+
 		return the_result
 	end
-	
+
 	def word_count(string)
 		# Simplistic, but agrees with Jekyll's number_of_words filter.
 		return string.scan(/\S+/).count
