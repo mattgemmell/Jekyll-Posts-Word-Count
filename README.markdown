@@ -16,17 +16,17 @@ For published & draft posts `{% posts_word_count PARAM %}`
 
 Where `PARAM` is one of:
 
-*	`total` (total word count of all posts)
-*	`average` (average word count across all posts)
+* `total` (total word count of all posts)
+* `average` (average word count across all posts)
 * `total_characters` (total character count of all posts)
 * `average_characters` (total average count of all posts)
-*	`longest` (longest word count of any post)
-*	`longest_post_index` (index in site.posts of longest post)
-*	`longest_post_title` (title of longest post)
+* `longest` (longest word count of any post)
+* `longest_post_index` (index in site.posts of longest post)
+* `longest_post_title` (title of longest post)
 * `longest_post_url` (url of longest post)
-*	`shortest` (shortest word count of any post)
-*	`shortest_post_index` (index in site.posts of shortest post)
-*	`shortest_post_title` (title of shortest post)
+* `shortest` (shortest word count of any post)
+* `shortest_post_index` (index in site.posts of shortest post)
+* `shortest_post_title` (title of shortest post)
 * `shortest_post_url` (url of shortest post)
 
 ## Example
