@@ -10,7 +10,7 @@ To install, copy the `posts-word-count.rb` file into your Jekyll `_plugins` fold
 
 ## Usage
 
-For only published posts: `{% posts_word_count PARAM %}`
+For only published posts: `{% published_posts_word_count PARAM %}`
 
 For published & draft posts `{% posts_word_count PARAM %}`
 
