@@ -7,9 +7,14 @@
 # PARAM can be:
 #	total (total word count of all posts)
 #	average (average word count across all posts)
+#   total_characters (total character count of all posts)
+#   average_characters (total average count of all posts)
 #	longest (longest word count of any post)
 #	longest_post_index (index in site.posts of longest post)
 #	longest_post_title (title of longest post)
+#	shortest (shortest word count of any post)
+#	shortest_post_index (index in site.posts of shortest post)
+#	shortest_post_title (title of shortest post)
 
 class PostsWordCount < Liquid::Tag
 	def initialize(tag, text, tokens)
@@ -19,6 +24,8 @@ class PostsWordCount < Liquid::Tag
 		@average_character_count = 0
 		@longest_word_count = 0
 		@longest_post_index = 0
+		@shortest_word_count = 0
+		@shortest_post_index = 0
 		@tag = tag
 		@text = text.strip
 		@tokens = tokens
@@ -39,6 +46,12 @@ class PostsWordCount < Liquid::Tag
 				@longest_post_index = all_posts.count - (index + 1)
 				@longest_post_title = all_posts[index].data["title"]
 			end
+
+			if num_words < @shortest_word_count || @shortest_word_count == 0
+				@shortest_word_count = num_words
+				@shortest_post_index = all_posts.count - (index + 1)
+				@shortest_post_title = all_posts[index].data["title"]
+			end
 		}
 		@average_word_count = @total_word_count / all_posts.count
 		@average_character_count = @total_character_count / all_posts.count
@@ -57,6 +70,12 @@ class PostsWordCount < Liquid::Tag
 			the_result = @longest_post_title
 		elsif @text == "longest"
 			the_result = @longest_word_count
+		elsif @text == "shortest_post_index"
+			the_result = @shortest_post_index
+		elsif @text == "shortest_post_title"
+			the_result = @shortest_post_title
+		elsif @text == "shortest"
+			the_result = @shortest_word_count
 		end
 
 		return the_result
