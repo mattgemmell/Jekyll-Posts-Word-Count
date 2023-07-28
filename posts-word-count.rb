@@ -9,11 +9,14 @@
 #	average (average word count across all posts)
 #	longest (longest word count of any post)
 #	longest_post_index (index in site.posts of longest post)
+#	longest_post_title (title of longest post)
 
 class PostsWordCount < Liquid::Tag
 	def initialize(tag, text, tokens)
 		@total_word_count = 0
 		@average_word_count = 0
+		@total_character_count = 0
+		@average_character_count = 0
 		@longest_word_count = 0
 		@longest_post_index = 0
 		@tag = tag
@@ -27,6 +30,10 @@ class PostsWordCount < Liquid::Tag
 		all_posts.each_with_index { |this_post, index|
 			num_words = word_count(this_post.content)
 			@total_word_count += num_words
+
+			num_chars = this_post.content.length
+			@total_character_count += num_chars
+
 			if num_words > @longest_word_count
 				@longest_word_count = num_words
 				@longest_post_index = all_posts.count - (index + 1)
@@ -34,16 +41,21 @@ class PostsWordCount < Liquid::Tag
 			end
 		}
 		@average_word_count = @total_word_count / all_posts.count
+		@average_character_count = @total_character_count / all_posts.count
 
-		if @text.start_with? "total"
+		if @text == "total"
 			the_result = @total_word_count
-		elsif @text.start_with? "average"
+		elsif @text == "average"
 			the_result = @average_word_count
-		elsif @text.start_with? "longest_post_index"
+		elsif @text == "total_characters"
+			the_result = @total_character_count
+		elsif @text == "average_characters"
+			the_result = @average_character_count
+		elsif @text == "longest_post_index"
 			the_result = @longest_post_index
-		elsif @text.start_with? "longest_post_title"
+		elsif @text == "longest_post_title"
 			the_result = @longest_post_title
-		elsif @text.start_with? "longest"
+		elsif @text == "longest"
 			the_result = @longest_word_count
 		end
 
